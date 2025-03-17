@@ -1,0 +1,12 @@
+rich
+pandas
+numpy
+matplotlib
+seaborn
+scikit-learn
+statsmodels
+xgboost
+lightgbm
+hyperopt
+imblearn
+shap
