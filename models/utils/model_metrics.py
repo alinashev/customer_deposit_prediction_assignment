@@ -3,7 +3,7 @@ from imblearn.metrics import geometric_mean_score
 from sklearn.metrics import accuracy_score, f1_score, mean_squared_error, roc_curve, auc, precision_score, recall_score, \
     precision_recall_curve, balanced_accuracy_score
 
-from utils.config import METRIC_CONFIG
+from customer_deposit_prediction_assignment.utils.config import METRIC_CONFIG
 
 
 class Metric:

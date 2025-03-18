@@ -1,4 +1,4 @@
-from models.model.base_model import BaseModel
+from customer_deposit_prediction_assignment.models.model.base_model import BaseModel
 
 import xgboost as xgb
 

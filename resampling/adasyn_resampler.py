@@ -1,7 +1,7 @@
 import pandas as pd
 from imblearn.over_sampling import ADASYN
 
-from resampling.resampler import BaseResampler
+from customer_deposit_prediction_assignment.resampling.resampler import BaseResampler
 
 class AdasynResampler(BaseResampler):
     """

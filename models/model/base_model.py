@@ -12,9 +12,9 @@ Dependencies:
 """
 
 from matplotlib import pyplot as plt
-from models.utils.cross_validator import CrossValidator
-from models.utils.model_metrics import ModelEvaluation, Metric
-from models.utils.visualization import display_confusion_matrix, plot_residuals, plot_roc_auc, plot_pr_auc
+from customer_deposit_prediction_assignment.models.utils.cross_validator import CrossValidator
+from customer_deposit_prediction_assignment.models.utils.model_metrics import ModelEvaluation, Metric
+from customer_deposit_prediction_assignment.models.utils.visualization import display_confusion_matrix, plot_residuals, plot_roc_auc, plot_pr_auc
 
 class BaseModel:
     """

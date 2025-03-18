@@ -1,5 +1,5 @@
 from sklearn.ensemble import RandomForestClassifier
-from models.model.base_model import BaseModel
+from customer_deposit_prediction_assignment.models.model.base_model import BaseModel
 
 class RandomForestModel(BaseModel):
     def __init__(self, X_train, y_train, X_val, y_val, enable_cv=False, cv_params=None, **kwargs):

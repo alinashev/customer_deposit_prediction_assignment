@@ -1,5 +1,5 @@
 from sklearn.tree import DecisionTreeClassifier
-from models.model.base_model import BaseModel
+from customer_deposit_prediction_assignment.models.model.base_model import BaseModel
 
 
 class DecisionTreeModel(BaseModel):

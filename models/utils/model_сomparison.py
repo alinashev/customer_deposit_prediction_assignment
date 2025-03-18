@@ -3,7 +3,7 @@ import numpy as np
 from rich.console import Console
 from rich.table import Table
 
-from utils.config import METRIC_CONFIG
+from customer_deposit_prediction_assignment.utils.config import METRIC_CONFIG
 
 
 class ModelComparison:

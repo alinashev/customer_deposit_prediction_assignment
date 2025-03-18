@@ -2,10 +2,10 @@ import pandas as pd
 from typing import List, Tuple, Dict, Optional
 from sklearn.preprocessing import OneHotEncoder, StandardScaler, MinMaxScaler, OrdinalEncoder
 
-from preprocessing.utils.encoders import ordinal_encode, one_hot_encode, define_binary_codes
-from preprocessing.utils.scalers import min_max_scaler, standard_scaler
-from preprocessing.utils.utils import define_numerical_cols, remove_unnecessary_columns, split_data
-from utils.config import ORDINAL_MAPPINGS, ONE_HOT_COLS, CATEGORY_MAPPINGS
+from customer_deposit_prediction_assignment.preprocessing.utils.encoders import ordinal_encode, one_hot_encode, define_binary_codes
+from customer_deposit_prediction_assignment.preprocessing.utils.scalers import min_max_scaler, standard_scaler
+from customer_deposit_prediction_assignment.preprocessing.utils.utils import define_numerical_cols, remove_unnecessary_columns, split_data
+from customer_deposit_prediction_assignment.utils.config import ORDINAL_MAPPINGS, ONE_HOT_COLS, CATEGORY_MAPPINGS
 
 
 class Processor:

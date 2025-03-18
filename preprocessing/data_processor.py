@@ -15,11 +15,11 @@ Dependencies:
 
 import pandas as pd
 
-from enrich.features import FeatureEngineer
-from preprocessing.missing_value_handler import MissingValueHandler
-from preprocessing.outlier_processor import OutlierProcessor
-from preprocessing.processor import Processor
-from utils.config import OUTLIER_CONFIG, FEATURE_ENGINEERING_CONFIG, MISSING_VALUE_CONFIG
+from customer_deposit_prediction_assignment.enrich.features import FeatureEngineer
+from customer_deposit_prediction_assignment.preprocessing.missing_value_handler import MissingValueHandler
+from customer_deposit_prediction_assignment.preprocessing.outlier_processor import OutlierProcessor
+from customer_deposit_prediction_assignment.preprocessing.processor import Processor
+from customer_deposit_prediction_assignment.utils.config import OUTLIER_CONFIG, FEATURE_ENGINEERING_CONFIG, MISSING_VALUE_CONFIG
 
 class DataProcessor:
     """

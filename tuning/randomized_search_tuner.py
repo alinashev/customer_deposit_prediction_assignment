@@ -1,6 +1,6 @@
 from sklearn.model_selection import RandomizedSearchCV
 
-from tuning.hyperparameter_tuner import HyperparameterTuner
+from customer_deposit_prediction_assignment.tuning.hyperparameter_tuner import HyperparameterTuner
 
 
 class RandomSearchTuner(HyperparameterTuner):

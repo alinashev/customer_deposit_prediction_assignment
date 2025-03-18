@@ -3,7 +3,7 @@ from hyperopt import STATUS_OK, Trials, fmin, tpe, hp
 from hyperopt.early_stop import no_progress_loss
 from sklearn.metrics import roc_auc_score
 
-from tuning.hyperparameter_tuner import HyperparameterTuner
+from customer_deposit_prediction_assignment.tuning.hyperparameter_tuner import HyperparameterTuner
 
 
 class HyperoptTuner(HyperparameterTuner):
