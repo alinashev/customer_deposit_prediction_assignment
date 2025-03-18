@@ -8,22 +8,20 @@ from customer_deposit_prediction_assignment.tuning.hyperparameter_tuner import H
 
 class HyperoptTuner(HyperparameterTuner):
     def objective(self, params):
-        model = self.model_class(
-            **{k: int(v) if k in ['n_estimators', 'max_depth', 'min_child_weight', 'num_leaves'] else v for k, v in
-               params.items()},
-            n_jobs=-1
-        )
+        params = {k: int(v) if k in ["num_iterations", "n_estimators", "max_depth", "min_child_weight", "num_leaves"]
+        else v for k, v in params.items()}
+
+        model = self.model_class(**params, verbosity=-1) if self.model_class.__name__ == "LGBMClassifier" \
+            else self.model_class(**params, n_jobs=-1)
+
         model.fit(self.X_train, self.y_train)
         val_pred = model.predict_proba(self.X_val)[:, 1]
         roc_auc = roc_auc_score(self.y_val, val_pred)
-        return {'loss': -roc_auc, 'status': STATUS_OK}
+        return {"loss": -roc_auc, "status": STATUS_OK}
 
     def tune(self, transform=True):
         trials = Trials()
-        if transform:
-            space = self.transform_to_hyperopt_space(self.param_space)
-        else:
-            space = self.param_space
+        space = self.transform_to_hyperopt_space(self.param_space) if transform else self.param_space
 
         best_params = fmin(
             fn=self.objective,
@@ -31,11 +29,11 @@ class HyperoptTuner(HyperparameterTuner):
             algo=tpe.suggest,
             max_evals=self.max_evals,
             trials=trials,
-            early_stop_fn = no_progress_loss(7)
+            early_stop_fn=no_progress_loss(7)
         )
-        self.best_params = {k: int(v) if k in ['n_estimators', 'max_depth', 'min_child_weight', 'num_leaves'] else v for
-                            k, v in best_params.items()}
-        return self.best_params
+
+        return {k: int(v) if k in ["num_iterations", "n_estimators", "max_depth", "min_child_weight", "num_leaves"]
+        else v for k, v in best_params.items()}
 
     def transform_to_hyperopt_space(self, param_space_random):
         """
@@ -56,7 +54,10 @@ class HyperoptTuner(HyperparameterTuner):
             if isinstance(values, np.ndarray):
                 if len(values) > 1 and np.allclose(np.diff(values), values[1] - values[0]):
                     step = values[1] - values[0]
-                    param_space_hyperopt[param] = hp.quniform(param, values[0], values[-1], step)
+                    if param in ["num_iterations", "n_estimators", "max_depth", "min_child_weight", "num_leaves"]:
+                        param_space_hyperopt[param] = hp.quniform(param, values[0], values[-1], step)
+                    else:
+                        param_space_hyperopt[param] = hp.uniform(param, values[0], values[-1])
                 else:
                     param_space_hyperopt[param] = hp.uniform(param, values[0], values[-1])
             else:

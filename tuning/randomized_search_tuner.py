@@ -5,6 +5,9 @@ from customer_deposit_prediction_assignment.tuning.hyperparameter_tuner import H
 
 class RandomSearchTuner(HyperparameterTuner):
     def tune(self, n_iter=40, cv=3, scoring='roc_auc', random_state=42, n_jobs=-1):
+      if self.model_class.__name__ == "LGBMClassifier":
+          model = self.model_class(verbosity=-1)
+      else:
         model = self.model_class()
         random_search = RandomizedSearchCV(
             estimator=model, param_distributions=self.param_space, n_iter=n_iter,
