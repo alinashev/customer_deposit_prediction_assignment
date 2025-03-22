@@ -7,22 +7,22 @@ feature engineering, model training, and hyperparameter tuning.
 
 ### --- Preprocessing Configuration --- ###
 PREPROCESSING_CONFIG = {
-    "handle_unknowns": True,  # Handle 'unknown' values in categorical features
-    "apply_outliers": True,  # Apply outlier processing
-    "apply_feature_engineering": True,  # Generate new features
-    "apply_preprocessing": True  # Perform main preprocessing (encoding, scaling, etc.)
+    "handle_unknowns": True,  # Replace or handle 'unknown' categorical values
+    "apply_outliers": True,  # Apply outlier handling strategy
+    "apply_feature_engineering": True,  # Enable feature engineering steps
+    "apply_preprocessing": True  # Run core preprocessing pipeline
 }
 
-# Ordinal encoding mappings for categorical features with a specific order
+# Ordinal mapping for ordered categorical variables
 ORDINAL_MAPPINGS = {
     "education": ['illiterate', 'basic.4y', 'basic.6y', 'basic.9y',
                   'high.school', 'professional.course', 'university.degree']
 }
 
-# Categorical features that require one-hot encoding
+# Categorical columns for one-hot encoding
 ONE_HOT_COLS = ["job", "marital", "housing", "loan", "default", "poutcome"]
 
-# Direct categorical mappings for encoding
+# Direct mapping for categorical encoding
 CATEGORY_MAPPINGS = {
     "month": {
         'jan': 1, 'feb': 2, 'mar': 3, 'apr': 4, 'may': 5, 'jun': 6,
@@ -33,6 +33,7 @@ CATEGORY_MAPPINGS = {
     }
 }
 
+# Outlier handling strategy
 OUTLIER_CONFIG = {
     "clip_columns": {
         "age": {"upper_quantile": 0.99},  # Clip outliers for 'age'
@@ -47,6 +48,7 @@ OUTLIER_CONFIG = {
     }
 }
 
+# Strategy for handling missing values
 MISSING_VALUE_CONFIG = {
     "education": {"strategy": "mode"},
     "job": {"strategy": "skip"},
@@ -60,17 +62,16 @@ MISSING_VALUE_CONFIG = {
 
 ### --- Feature Engineering Configuration --- ###
 FEATURE_ENGINEERING_CONFIG = {
-    # Feature interactions between categorical/numeric variables
-    "INTERACTION_FEATURES": [],
-    # Ratio-based features (division of numerical features)
+    "INTERACTION_FEATURES": [],  # Feature interactions (currently disabled)
+
     "RATIO_FEATURES": [
         ("campaign", "previous"),  # campaign_previous_ratio
     ],
-    # Economic features based on macroeconomic indicators
+
     "ECONOMIC_FEATURES": [
         # ("cons.price.idx", "cons.conf.idx")  # price_conf_interaction
     ],
-    # Time-based features
+
     "TIME_FEATURES": {
         "second_half_year": {
             "column": "month",
@@ -81,7 +82,7 @@ FEATURE_ENGINEERING_CONFIG = {
             "values": ["mon", "tue", "wed", "thu", "fri"]
         }
     },
-    # Contact-related features
+
     "CONTACT_FEATURES": [
         "total_contacts",  # Sum of previous + campaign contacts
         "was_previously_contacted",  # Binary indicator: previous > 0
@@ -89,6 +90,7 @@ FEATURE_ENGINEERING_CONFIG = {
     ]
 }
 
+### --- Metrics Configuration --- ###
 METRIC_CONFIG = {
     "roc_auc": "primary",
     "f1_score": "secondary",
