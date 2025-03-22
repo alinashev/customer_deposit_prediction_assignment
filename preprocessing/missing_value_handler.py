@@ -67,11 +67,9 @@ class MissingValueHandler:
         """
         for col, params in self.config.items():
             if col in self.df.columns:
-                # Create binary indicator for 'unknown' values in categorical features
                 if self.df[col].dtype == "object":
                     self.df[f"{col}_unknown"] = (self.df[col] == "unknown").astype(int)
 
-                # Apply the specified filling strategy
                 strategy = params["strategy"]
                 fill_value = params.get("fill_value", None)
                 self.fill_missing_values(col, strategy, fill_value)

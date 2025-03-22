@@ -7,7 +7,27 @@ from customer_deposit_prediction_assignment.tuning.hyperparameter_tuner import H
 
 
 class HyperoptTuner(HyperparameterTuner):
+    """Hyperparameter tuning using the Hyperopt library.
+
+    This class implements Bayesian optimization via the Tree-structured Parzen Estimator (TPE)
+    from the Hyperopt library. It tunes the hyperparameters of a given model class to maximize
+    the ROC-AUC score on the validation set.
+
+    Inherits from:
+        HyperparameterTuner: A base class for hyperparameter tuning.
+    """
     def objective(self, params):
+
+        """Objective function to minimize (negative ROC-AUC) during optimization.
+
+        Args:
+            params (dict): Dictionary of hyperparameters to evaluate.
+
+        Returns:
+            dict: Dictionary containing:
+                - 'loss': Negative ROC-AUC score on the validation set.
+                - 'status': Optimization status (STATUS_OK).
+        """
         params = {k: int(v) if k in ["num_iterations", "n_estimators", "max_depth", "min_child_weight", "num_leaves"]
         else v for k, v in params.items()}
 
@@ -20,6 +40,15 @@ class HyperoptTuner(HyperparameterTuner):
         return {"loss": -roc_auc, "status": STATUS_OK}
 
     def tune(self, transform=True):
+        """Runs the hyperparameter optimization process using Hyperopt.
+
+        Args:
+            transform (bool): Whether to transform the parameter space to Hyperopt format.
+                Default is True.
+
+        Returns:
+            dict: Best set of hyperparameters found, with integer values cast appropriately.
+        """
         trials = Trials()
         space = self.transform_to_hyperopt_space(self.param_space) if transform else self.param_space
 

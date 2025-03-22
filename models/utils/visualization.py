@@ -5,7 +5,14 @@ from sklearn.metrics import confusion_matrix, roc_curve, auc, precision_recall_c
 
 
 def plot_roc_curve(fpr, tpr, roc_auc, name):
-    """Будуємо ROC-криву."""
+    """Plots the Receiver Operating Characteristic (ROC) curve.
+
+    Args:
+        fpr (array-like): False Positive Rates.
+        tpr (array-like): True Positive Rates.
+        roc_auc (float): Area Under the Curve (AUC) value.
+        name (str): Name of the dataset or model for the plot title.
+    """
     plt.plot(fpr, tpr, label=f'ROC (AUC = {roc_auc:.4f})', color='blue')
     plt.plot([0, 1], [0, 1], linestyle='--', color='grey')
     plt.xlabel('False Positive Rate')
@@ -17,6 +24,15 @@ def plot_roc_curve(fpr, tpr, roc_auc, name):
 
 
 def display_confusion_matrix(y_true, y_pred, dataset_name, ax=None):
+    """Displays the normalized confusion matrix as a heatmap.
+
+    Args:
+        y_true (array-like): True class labels.
+        y_pred (array-like): Predicted class labels.
+        dataset_name (str): Name of the dataset for the plot title.
+        ax (matplotlib.axes.Axes, optional): Matplotlib axis to plot on.
+            If None, a new figure is created.
+    """
     cm = confusion_matrix(y_true, y_pred, normalize='true')
 
     if ax is None:
@@ -32,8 +48,15 @@ def display_confusion_matrix(y_true, y_pred, dataset_name, ax=None):
         ax.set_ylabel('Target')
         ax.set_title(f'Confusion Matrix - {dataset_name}')
 
+
 def plot_residuals(target, prediction, name=""):
-    """Візуалізація залишків та розсіювання."""
+    """Visualizes prediction residuals with a scatter plot and histogram.
+
+    Args:
+        target (array-like): Ground truth values.
+        prediction (array-like): Predicted values.
+        name (str, optional): Title for the entire plot. Defaults to "".
+    """
     residuals = target - prediction
 
     plt.figure(figsize=(6, 4))
@@ -57,7 +80,17 @@ def plot_residuals(target, prediction, name=""):
     plt.suptitle(name, fontsize=12)
     plt.show()
 
+
 def plot_roc_auc(y_true, y_proba, pos_label, dataset_name, ax=None):
+    """Computes and plots the ROC curve with AUC for classification predictions.
+
+    Args:
+        y_true (array-like): True binary labels.
+        y_proba (array-like): Predicted probabilities for the positive class.
+        pos_label (int or str): The class considered as positive.
+        dataset_name (str): Name of the dataset for the plot title.
+        ax (matplotlib.axes.Axes, optional): Axis to plot on. If None, a new figure is created.
+    """
     fpr, tpr, _ = roc_curve(y_true, y_proba, pos_label=pos_label)
     roc_auc = auc(fpr, tpr)
     print(f'AUROC for {dataset_name} dataset: {roc_auc:.4f}')
@@ -74,8 +107,16 @@ def plot_roc_auc(y_true, y_proba, pos_label, dataset_name, ax=None):
         ax.set_title(f'ROC Curve - {dataset_name}')
         ax.legend(loc='lower right')
 
-def plot_pr_auc(y_true, y_proba, dataset_name, ax=None):
 
+def plot_pr_auc(y_true, y_proba, dataset_name, ax=None):
+    """Computes and plots the Precision-Recall (PR) curve with PR-AUC.
+
+    Args:
+        y_true (array-like): True binary labels.
+        y_proba (array-like): Predicted probabilities for the positive class.
+        dataset_name (str): Name of the dataset for the plot title.
+        ax (matplotlib.axes.Axes, optional): Axis to plot on. If None, a new figure is created.
+    """
     precision, recall, _ = precision_recall_curve(y_true, y_proba)
     pr_auc = auc(recall, precision)
     print(f'PR-AUC for {dataset_name} dataset: {pr_auc:.4f}')
