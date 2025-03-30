@@ -1,7 +1,7 @@
 """
 config.py
 
-This module contains configuration settings for data preprocessing,
+This file contains configuration settings for data preprocessing,
 feature engineering, model training, and hyperparameter tuning.
 """
 
